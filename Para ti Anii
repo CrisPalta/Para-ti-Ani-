@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Serás mi 14 de febrero?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: url('https://source.unsplash.com/1600x900/?stars') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        @keyframes starMovement {
+            0% { left: -5%; top: 10%; }
+            50% { left: 110%; top: 70%; }
+            100% { left: -5%; top: 10%; }
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background-color: white;
+            border-radius: 50%;
+            animation: starMovement 4s linear infinite;
+        }
+
+        .fallingStar {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: white;
+            border-radius: 50%;
+            animation: falling 2s linear infinite;
+        }
+
+        @keyframes falling {
+            0% { top: 0; left: 50%; opacity: 1; }
+            100% { top: 100%; left: 50%; opacity: 0; }
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: animateText 2s ease-in-out;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            border: none;
+            background-color: #ff4d6d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff1e50;
+        }
+
+        .flower {
+            width: 50px;
+            height: 50px;
+            background: url('https://path/to/your/flower-image.png') no-repeat center center;
+            background-size: contain;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: growFlower 2s ease-out forwards;
+            display: none;
+        }
+
+        @keyframes growFlower {
+            0% { height: 0; width: 0; }
+            100% { height: 100px; width: 100px; }
+        }
+
+        @keyframes animateText {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="inicio">
+        <h1>¡Te amo mxo!</h1>
+        <p>¡Que este 14 de febrero sea especial!</p>
+        <button onclick="mostrarMensaje()">Sí</button>
+    </div>
+
+    <div class="container" id="mensaje" style="display: none;">
+        <h1>¡Sabía que dirías que sí! 💖</h1>
+        <p>Eres lo mejor que me ha pasado, cada momento contigo es especial.</p>
+        <iframe id="musica" width="0" height="0" src="https://www.youtube.com/embed/9N9opF-PK5k?autoplay=1" frameborder="0" allow="autoplay"></iframe>
+    </div>
+
+    <div class="flower" id="flower"></div>
+
+    <script>
+        function mostrarMensaje() {
+            document.getElementById("inicio").style.display = "none";
+            document.getElementById("mensaje").style.display = "block";
+            document.getElementById("musica").style.display = "block";
+            document.getElementById("flower").style.display = "block";
+        }
+
+        function createStars() {
+            for (let i = 0; i < 50; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                document.body.appendChild(star);
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 2 + 2}s`;
+            }
+        }
+
+        // Función para crear estrella fugaz
+        function createFallingStar() {
+            let fallingStar = document.createElement('div');
+            fallingStar.classList.add('fallingStar');
+            document.body.appendChild(fallingStar);
+            fallingStar.style.left = `${Math.random() * 100}%`;
+            setTimeout(() => {
+                fallingStar.remove();
+            }, 2000);
+        }
+
+        setInterval(createFallingStar, 3000);
+        createStars();
+    </script>
+
+</body>
+</html>
